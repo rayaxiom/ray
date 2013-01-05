@@ -1,0 +1,7 @@
+Setting up the environment I'm comfortable with.
+The only things not here is my .vim folder and .ssh/config.
+
+.vim because I have not read up on submodules yet.
+.ssh/config because I don't want people to know my usernames and servers.
+
+

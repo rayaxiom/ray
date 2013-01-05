@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gvim ~/ray/bin/testedit && echo "Done the edit!"

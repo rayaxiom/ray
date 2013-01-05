@@ -1,0 +1,55 @@
+#!/bin/bash
+############################
+# .make.sh
+# This script creates symlinks from the home directory to any 
+# desired dotfiles in ~/ray/dotfiles
+############################
+
+dir="ray/dotfiles"          # My dotfiles
+dir_old="ray/dotfiles_old"  # Old dotfiles backup directory
+
+## declare an array of files to backup
+declare -a files=(".bashrc" \
+                  ".bashrc_alias" \
+                  ".vimrc" \
+                  ".gvimrc")
+
+echo "Moving old files into $dir_old/"
+
+## Change to home directory
+cd
+
+## now loop through the above array
+for file in "${files[@]}"
+do
+  if [ -e $file ]; then
+    mv $file ~/$dir_old/
+  else
+    echo "$file does not exist"
+  fi
+  
+  echo "Creating symlink to $file in home directory."
+  ln -s ~/$dir/$file ~/$file
+done
+
+## Linking to files in Dropbox
+dir="Dropbox/linux_sync"          # Other sync files
+declare -a files=(".ssh/config" \
+                  ".vim")
+
+## now loop through the above array
+for file in "${files[@]}"
+do
+  if [ -e $file ]; then
+    mv $file ~/$dir_old/
+  else
+    echo "$file does not exist"
+  fi
+  
+  echo "Creating symlink to $file in home directory."
+  ln -s ~/$dir/$file ~/$file
+done
+
+
+
+

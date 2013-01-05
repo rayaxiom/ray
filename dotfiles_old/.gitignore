@@ -1,0 +1,8 @@
+# Directory for old dotfiles.
+
+# Ignore everything in this directory. 
+*
+
+# Except .gitignore.
+!.gitignore
+

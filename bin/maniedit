@@ -1,0 +1,6 @@
+#!/bin/bash
+
+gvim /home/raymon/programming/tools/wrap_around/manipulator.cpp
+
+
+

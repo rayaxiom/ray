@@ -1,0 +1,4 @@
+#!/bin/bash
+
+scp -r n9plus:$1 $2
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+scp -r maths1:$1 $2 
+

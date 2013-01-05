@@ -1,0 +1,4 @@
+#!/bin/bash
+
+scp -P 13370 -r wulfling:$1 $2 
+

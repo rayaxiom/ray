@@ -1,0 +1,31 @@
+#!/bin/bash
+BKPATH="/media/ray/MyBook1/backups_rice_ubuntu"
+
+## declare an array variable
+declare -a bkdirs=("Downloads" \
+                   "learning" \
+                   "programming" \
+                   "temp" \
+                   "VirtualBoxVMs" \
+                   "Pictures")
+
+## now loop through the above array
+for i in "${bkdirs[@]}"
+do
+  echo "************************************************************"
+  echo "Backing up $i"
+  rdiff-backup --print-statistics ~/$i $BKPATH/$i
+  
+  echo "Deleting files older than 52 weeks from $i"
+  rdiff-backup --remove-older-than 52W $BKPATH/$i
+done
+
+## Now output the collective space used.
+## Commented out since it is read intensive
+echo "************************************************************"
+echo "Hdd used for $BKPATH"
+du -chs $BKPATH
+echo "Memory of current data:"
+du -chs "${bkdirs[@]}"
+
+

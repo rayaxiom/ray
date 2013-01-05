@@ -1,0 +1,26 @@
+#!/bin/bash
+# Script to cycle through
+
+cycle()
+{
+  for VIS in Sim Str
+  do
+    for ANG in 0 30 45 60 90
+    do
+      for RE in 0 50 100 150 200
+      do
+     #   for NOEL in Noel3 Noel4 Noel8 Noel16 Noel32 Noel64 Noel128
+     #   do
+          echo -e "$VIS $ANG $RE"
+     #   done
+      done
+    done
+  done
+}
+
+if [ "$1" == "-e" ]; then
+  ${EDITOR:-vim} ~/ray/bin/cyclelabels
+else
+  cycle
+fi
+

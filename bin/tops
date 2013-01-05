@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FILE=$1
+FILEBASE=${FILE%%.*}
+a2ps -o "$FILEBASE".ps -r --columns=2 "$FILE"
+gnome-open "$FILEBASE".ps
+
+
+
+

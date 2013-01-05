@@ -1,0 +1,10 @@
+#!/bin/bash
+
+STR=$(pwd)
+cd /home/raymon/programming/tools/wrap_around/
+make
+./manipulator $STR/$1
+#echo $(pwd)
+#echo $STR
+
+
