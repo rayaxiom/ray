@@ -1,5 +1,5 @@
 #!/bin/bash
-BKPATH="/media/ray/MyBook1/backups_rice_ubuntu"
+BKPATH="/media/ray/MyBook1/bk_rayrice"
 
 ## declare an array variable
 declare -a bkdirs=("Downloads" \
