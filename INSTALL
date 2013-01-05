@@ -8,6 +8,25 @@
 # Can be modified to symlink from anywhere to anywhere.
 ############################
 
+#====================================================================
+# A few helper functions
+#====================================================================
+ 
+# A little function 'borrowed' from the tecplot installation script...
+OptionPrompt() 
+{
+ printf "%s " "$1"
+}
+ 
+# Another little function 'borrowed' from the tecplot installation script...    
+OptionRead()
+{
+ read Opt
+ echo $Opt
+}
+
+
+
 dir="ray/dotfiles"          # My dotfiles
 dir_old="ray/dotfiles_old"  # Old dotfiles backup directory
 
@@ -56,6 +75,28 @@ do
     echo "~/$dir/$file does not exist. Perhaps you are not Ray."
   fi
 done
+
+
+# Check build directory with user
+#--------------------------------
+echo " "
+echo " "
+echo "Do you want to load Ray's cron jobs?"
+echo "Your current crontab will be stored in"
+echo " "
+echo "    " $dir_old
+echo " "
+echo " "
+
+OptionPrompt " Is this OK? [y/n -- default: n]"
+reply=`OptionRead`
+if test "$reply" != "y" -a "$reply" != "Y" ; then
+  echo "crontab not loaded."
+else
+  echo "It's ok"
+  crontab -l > ~/$dir_old/crontab_$(date +%Y%m%d)
+  crontab ~/ray/dotfiles/crontab_$USER$HOSTNAME
+fi
 
 
 
