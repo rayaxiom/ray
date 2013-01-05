@@ -1,0 +1,4 @@
+#!/bin/bash
+
+~/ray/bin/backup_$USER$HOSTNAME
+
