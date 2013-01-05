@@ -1,0 +1,16 @@
+#!/bin/sh
+
+
+#pdflatex $1.tex && bibtex $1 && pdflatex $1.tex && pdflatex $1.tex && gnome-open $1.pdf
+#pdflatex report.tex && bibtex report && pdflatex report.tex && pdflatex report.tex
+
+
+if [ -f *.tex ]
+then
+    echo "This filename exists"
+#elif [ -d $dirname ]
+#then
+#    echo "This dirname [$dirname] exists"
+else
+    echo "Neither exist"
+fi

@@ -1,0 +1,115 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage{url}
+\usepackage{graphics}
+\usepackage{textcomp}
+\usepackage[official]{eurosym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{sidecap}
+\usepackage{subfigure}
+\usepackage{verbatim}
+\usepackage[small]{caption}
+\usepackage{rotating}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\VerbatimFootnotes
+\usepackage{color}
+\usepackage[toc,page]{appendix}
+\usepackage{lscape}
+\usepackage{placeins}
+\usepackage[all]{xy}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{setspace}
+% Below are the spacing options.
+%\doublespacing
+%\singlespacing
+\onehalfspacing
+%\setstretch{1.8}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newcommand{\pde}{partial differential equation}
+\newcommand{\Pde}{Partial differential equation}
+\newcommand{\pdes}{partial differential equations}
+\newcommand{\Pdes}{Partial differential equations}
+
+% This is the standardone inch all around border.
+%\usepackage{fullpage}
+
+% This is what I've made myself - max space used, for Tisseur cw.
+% For most stand alone work, use this one.
+%\setlength{\topmargin}{-1in}
+%\setlength{\textheight}{9.75in}
+%\setlength{\oddsidemargin}{-0.25in}
+%\setlength{\textwidth}{7in}
+
+% This is the geometry package... apparently good!
+%\usepackage[left=2cm,top=4cm,right=2cm]{geometry}
+\usepackage[a4paper]{geometry}
+\geometry{top=1.0in, bottom=1.0in, left=1.6in, right=1.0in}
+
+\lstset{numbers=left, stepnumber=2, frame=single,basicstyle=\footnotesize, showstringspaces=false, language=C++}
+
+
+
+\begin{document}
+\input{titlepage}
+\thispagestyle{empty}
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter*{ABSTRACT}
+\addcontentsline{toc}{chapter}{ABSTRACT}
+\input{abstract}
+
+\chapter*{DECLARATION}
+\addcontentsline{toc}{chapter}{DECLARATION}
+\input{declaration}
+
+\chapter*{COPYRIGHT STATEMENT}
+\addcontentsline{toc}{chapter}{COPYRIGHT STATEMENT}
+\input{copywritestatement}
+
+\chapter*{ACKNOWLEDGEMENT}
+\addcontentsline{toc}{chapter}{ACKNOWLEDGEMENT}
+\input{acknowledgement}
+
+\chapter{Introduction\label{chap:introduction}}
+\input{introduction}
+
+\chapter{Other Chapters\label{chap:other}}
+\input{chaptertemplate}
+
+\chapter{Conclusion\label{chap:conclusion}}
+\input{conclusion}
+
+\thispagestyle{empty}\newpage
+
+\addtocontents{toc}{\protect\contentsline{chapter}{Appendices:}{}}
+\appendix
+\chapter{Result Tables}
+\label{chap:resulttables}
+\input{appendixtableresults}
+\chapter{Implementation code}
+\label{chap:implementationcode}
+\input{appendixcode}
+
+\clearpage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain}
+\bibliography{bib} % load in the info produced from bib.bib
+
+\end{document}

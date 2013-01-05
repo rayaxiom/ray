@@ -1,0 +1,133 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{url}
+\usepackage{graphics}
+\usepackage{textcomp}
+\usepackage[official]{eurosym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{sidecap}
+\usepackage{subfigure}
+\usepackage{verbatim}
+\usepackage[small]{caption}
+\usepackage{rotating}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\VerbatimFootnotes
+\usepackage{color}
+\usepackage[toc,page]{appendix}
+\usepackage{lscape}
+\usepackage{placeins}
+\usepackage[all]{xy}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{multirow}
+%\usepackage{setspace}
+% Below are the spacing options.
+%\doublespacing
+%\singlespacing
+%\onehalfspacing
+%\setstretch{1.8}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newcommand{\pde}{partial differential equation}
+\newcommand{\Pde}{Partial differential equation}
+\newcommand{\pdes}{partial differential equations}
+\newcommand{\Pdes}{Partial differential equations}
+
+% This is the standardone inch all around border.
+%\usepackage{fullpage}
+
+% This is what I've made myself - max space used, for Tisseur cw.
+% For most stand alone work, use this one.
+\setlength{\topmargin}{-1in}
+\setlength{\textheight}{9.75in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\textwidth}{7in}
+
+% This is the geometry package... apparently good!
+%\usepackage[left=2cm,top=4cm,right=2cm]{geometry}
+%\usepackage[a4paper]{geometry}
+%\geometry{top=1.0in, bottom=1.0in, left=1.6in, right=1.0in}
+
+\lstset{numbers=left, stepnumber=2, frame=single,basicstyle=\footnotesize, showstringspaces=false, language=C++}
+
+
+ 
+\begin{document}
+\title{This is HNot the title. \\ it can be split on several lines.}
+\author{RaymonHIIIII}
+\date{May 24, 2010}
+\maketitle
+ 
+\section*{Lecture 1}
+\subsection*{Levels of abstraction}
+
+\begin{itemize}
+  \item \textbf{Application Level:} \today Systematic procedure for solving the problem is developed, based on some discrete data domain. In many cases, the problem itself cannot be solved directly, so have to solve a related problem, this is often discrete and reflects the discrete nature of computer storage. Parallelism arises in two forms, \textbf{data-parallelism} and \textbf{task-parallelism}.
+   \item \textbf{Specification Level:} Here the algorithm is expressed as a program, moving concerns further towards the restrictions associated with real computer storage. Programming languages (which reflects the hardware architecture) often leads to unnatural constraints on the algorithm. See notes on how MPI forced the parallel algorithm in a certain direction. \cite{duffy}
+   \item \textbf{Algorithm Level:}
+   \item \textbf{Program Level:}
+   \item \textbf{Architecture Level:}
+ \end{itemize}
+ 
+ \begin{table}[ht]
+ \begin{center}
+ \begin{tabular}{cc|c|c|c|c|l}
+ \cline{3-6}
+ & & \multicolumn{4}{|c|}{Primes} \\ 
+ \cline{3-6}
+ & & 2 & 3 & 5 & 7 \\ 
+ \cline{1-6}
+ \multicolumn{1}{|c|}{\multirow{2}{*}{Powers}} & \multicolumn{1}{|c|}{504} & 3 & 2 & 0 & 1 & \\ 
+ \cline{2-6}
+ \multicolumn{1}{|c|}{}                        & \multicolumn{1}{|c|}{540} & 2 & 3 & 1 & 0 & \\ 
+ \cline{1-6}
+ \multicolumn{1}{|c|}{\multirow{2}{*}{Powers}} & \multicolumn{1}{|c|}{gcd} & 2 & 2 & 0 & 0 & min \\
+ \cline{2-6}
+ \multicolumn{1}{|c|}{}                        & \multicolumn{1}{|c|}{lcm} & 3 & 3 & 1 & 1 & max \\
+ \cline{1-6}
+ \end{tabular}
+ \end{center}
+ \caption{Results for bilinear ($Q_2$) approximation, where $u(0,0) = 0.298393205714$.}
+ \label{table:lable1}
+ \end{table}
+  
+ 
+ 
+ \section*{Lecture 2}
+ 
+ \section*{Lecture 3}
+ 
+ \section*{Lecture 4}
+ 
+ \section*{Lecture 5}
+ 
+ \section*{Lecture 6}
+ 
+ \section*{Lecture 7}
+ 
+ \section*{Lecture 8}
+ 
+ \section*{Lecture 9}
+ 
+ \section*{Lecture 10}
+ 
+ \section*{Lecture 11}
+ 
+ \section*{Lecture 12}
+ 
+ \section*{Lecture 13}
+ 
+ \section*{Lecture 14}
+
+\clearpage % This will put the bibliography on a new page. Remove if not needed.
+\bibliographystyle{plain}
+\bibliography{bib} % load in the info produced from bib.bib
+ 
+ 
+ \end{document}
