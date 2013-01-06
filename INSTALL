@@ -81,10 +81,11 @@ done
 #--------------------------------
 echo " "
 echo " "
-echo "Do you want to load Ray's cron jobs?"
+echo "Do you want to load Ray's crontab?"
+echo "See ~/ray/dotfiles/crontab_$USER$HOSTNAME"
 echo "Your current crontab will be stored in"
 echo " "
-echo "    " $dir_old
+echo "    " $dir_old/
 echo " "
 echo " "
 
@@ -93,9 +94,12 @@ reply=`OptionRead`
 if test "$reply" != "y" -a "$reply" != "Y" ; then
   echo "crontab not loaded."
 else
-  echo "It's ok"
-  crontab -l > ~/$dir_old/crontab_$(date +%Y%m%d)
+  CRONFILE_BK="crontab_${USER}${HOSTNAME}_$(date +"%F")"
+  crontab -l > ~/$dir_old/$CRONFILE_BK
   crontab ~/ray/dotfiles/crontab_$USER$HOSTNAME
+  echo "Done... your previous crontab is stored in"
+  echo " "
+  echo "  " ~/$dir_old/$CRONFILE_BK
 fi
 
 
