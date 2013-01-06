@@ -1,7 +1,15 @@
 #!/bin/bash
+
+## Target directory of backups
 BKPATH="/media/ray/MyBook1/bk_rayrice"
 
-## declare an array variable
+## Check if the backup directory exists
+if [ ! -e $BKPATH ]; then
+  echo "$BKPATH does not exist. Not backing up and exiting..."
+  exit
+fi
+
+## Sources to back up.
 declare -a bkdirs=("Downloads" \
                    "learning" \
                    "programming" \
@@ -9,7 +17,7 @@ declare -a bkdirs=("Downloads" \
                    "VirtualBoxVMs" \
                    "Pictures")
 
-## now loop through the above array
+## Back up each file/folder in bk_dirs
 for i in "${bkdirs[@]}"
 do
   echo "************************************************************"
@@ -27,5 +35,3 @@ echo "Hdd used for $BKPATH"
 du -chs $BKPATH
 echo "Memory of current data:"
 du -chs "${bkdirs[@]}"
-
-
