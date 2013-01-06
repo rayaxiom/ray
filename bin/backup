@@ -2,6 +2,6 @@
 
 echo "Running ~/ray/bin/backup_${USER}${HOSTNAME} on $(date +"%F at %T")"
 BK_FILE="bk_${USER}${HOSTNAME}_$(date +"%F").log"
-~/ray/bin/backup_${USER}${HOSTNAME} > ~/ray/log/${BK_FILE}
+~/ray/bin/backup_${USER}${HOSTNAME} > ~/ray/log/${BK_FILE} 2>&1
 echo "Done... see ~/ray/log/${BK_FILE}"
 
