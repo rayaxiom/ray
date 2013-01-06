@@ -21,4 +21,4 @@
 # 
 # m h  dom mon dow   command
 
-0 5 * * * /home/ray/ray/bin/backup > /home/ray/ray/dotfiles_old/backup.log
+0 5 * * * /home/ray/ray/bin/backup
