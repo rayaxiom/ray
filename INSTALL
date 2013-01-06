@@ -11,36 +11,40 @@
 #==============================================================================
 # A few helper functions
 #==============================================================================
- 
-# A little function 'borrowed' from the tecplot installation script...
+## A little function 'borrowed' from the tecplot installation script...
 OptionPrompt() 
 {
  printf "%s " "$1"
 }
  
-# Another little function 'borrowed' from the tecplot installation script...    
+## Another little function 'borrowed' from the tecplot installation script...    
 OptionRead()
 {
  read Opt
  echo $Opt
 }
 
+
 ###############################################################################
 #==============================================================================
 # Setup post commit hook
 #==============================================================================
+echo "Symlinking hooks/post-commit"
+if [ -e ~/ray/git/hooks/post-commit ]; then
+  echo ".git/hooks/post-commit already exists..."
+  echo "I will not symlink to ./hooks/post-commit"
+else
+  ln -s ~/ray/hooks/post-commit ~/ray/.git/hooks/post-commit
+fi
 
-
-
-
-
+echo "Done symlinking post-commit hook"
+echo " "
 
 
 ###############################################################################
 #==============================================================================
 # Backup and symlink dotfiles
 #==============================================================================
-
 dir="ray/dotfiles"          # My dotfiles
 dir_old="ray/dotfiles_old"  # Old dotfiles backup directory
 
@@ -51,6 +55,7 @@ declare -a files=(".bashrc" \
                   ".gvimrc")
 
 echo "Moving old files into $dir_old/"
+echo " "
 
 ## Change to home directory
 cd
@@ -95,7 +100,6 @@ done
 #==============================================================================
 # Load crontab
 #==============================================================================
-
 echo " "
 echo "Do you want to load Ray's crontab?"
 echo "See ~/ray/dotfiles/crontab_$USER$HOSTNAME"
@@ -118,5 +122,8 @@ else
   echo "  " ~/$dir_old/$CRONFILE_BK
 fi
 
+
+###############################################################################
+echo " "
 echo "Finished..."
 
