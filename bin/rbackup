@@ -1,6 +1,9 @@
 #!/bin/bash
 set -eu
 
+## The most recent backup log file
+NEWEST=
+
 run_backup()
 {
   echo "Running ~/ray/bin/backup_${USER}${HOSTNAME} on $(date +"%F at %T")"
@@ -9,20 +12,45 @@ run_backup()
   echo "Done... see ~/ray/log/${BK_FILE}"
 }
 
+## Displays the most recent backup log file
 display_last_log()
 {
-  echo "display_last_log to do..."
+  cat $NEWEST
 }
 
+## Clears all backup logs except for the most recent one.
 clear_logs()
 {
-  echo "clear_logs to do."
+  echo $NEWEST
+  find . -name 'bk_*' -type f -not -name $NEWEST -delete
 }
 
 if [ $# -eq 0 ]; then
   run_backup
-elif [ "$1" == "lastlog" ]; then
-  display_last_log
-elif [ "$1" == "clearlog" ]; then
-  clear_logs
+else
+
+  ## Change to log directory
+  cd ~/ray/log/
+
+  ## Get the most recent logfile
+  NEWEST=`ls -t bk_${USER}${HOSTNAME}_* | head -1`
+  echo "$NEWEST"
+  #  for f in ~/ray/log/bk_${USER}${HOSTNAME}_*
+#  do
+#    if [ -z "$NEWEST" ]
+#    then 
+#        NEWEST=$f
+#    elif [ "$f" -nt "$NEWEST" ] 
+#    then
+#        NEWEST=$f
+#    fi
+#  done
+  
+  ## Either display the most recent log file or remove older ones
+  if [ "$1" == "lastlog" ]; then
+    display_last_log
+  elif [ "$1" == "clearlog" ]; then
+    clear_logs
+  fi
+
 fi
