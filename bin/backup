@@ -1,7 +1,28 @@
 #!/bin/bash
+set -eu
 
-echo "Running ~/ray/bin/backup_${USER}${HOSTNAME} on $(date +"%F at %T")"
-BK_FILE="bk_${USER}${HOSTNAME}_$(date +"%F").log"
-~/ray/bin/backup_${USER}${HOSTNAME} > ~/ray/log/${BK_FILE} 2>&1
-echo "Done... see ~/ray/log/${BK_FILE}"
+run_backup()
+{
+  echo "Running ~/ray/bin/backup_${USER}${HOSTNAME} on $(date +"%F at %T")"
+  BK_FILE="bk_${USER}${HOSTNAME}_$(date +"%F").log"
+  ~/ray/bin/backup_${USER}${HOSTNAME} > ~/ray/log/${BK_FILE} 2>&1
+  echo "Done... see ~/ray/log/${BK_FILE}"
+}
 
+display_last_log()
+{
+  echo "display_last_log to do..."
+}
+
+clear_logs()
+{
+  echo "clear_logs to do."
+}
+
+if [ $# -eq 0 ]; then
+  run_backup
+elif [ "$1" == "lastlog" ]; then
+  display_last_log
+elif [ "$1" == "clearlog" ]; then
+  clear_logs
+fi
