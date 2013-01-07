@@ -27,8 +27,8 @@ do
   echo "Backing up $i"
   rdiff-backup --print-statistics ~/$i $BKPATH/$i
   
-  echo "Deleting files older than 52 weeks from $i"
-  rdiff-backup --remove-older-than 52W $BKPATH/$i
+  echo "Deleting files older than 4 weeks from $i"
+  rdiff-backup --remove-older-than 4W $BKPATH/$i
 done
 
 ## Now output the collective space used.
