@@ -3,9 +3,12 @@
 #
 # NOTE: This script is distructive, it will change your dotfiles!
 #
-# This script creates symlinks from the home directory to any 
-# desired dotfiles in ~/ray/dotfiles
-# Can be modified to symlink from anywhere to anywhere.
+# This script does the following:
+# 0) assumes that you are ray.
+# 1) backs up your current dotfiles in ~/ray/dotfiles_old/
+# 2) creates symlinks to ~/ray/dotfiles/
+# 3) load specified bash_completion files
+# 4) load crontab from ~/ray/dotfiles
 ###############################################################################
 
 #==============================================================================
