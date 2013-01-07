@@ -1,0 +1,38 @@
+#!/bin/bash
+
+## Telling them!
+echo "I ran $0 on $(date +"%F at %T")"
+
+## Target directory of backups
+BKPATH="/media/2TBBK/bk_$USER$HOSTNAME"
+
+## Check if the backup directory exists
+if [ ! -e $BKPATH ]; then
+  echo "$BKPATH does not exist. Not backing up and exiting..."
+  exit
+fi
+
+## Sources to back up.
+declare -a bkdirs=("Downloads" \
+                   "learning" \
+                   "programming" \
+                   "temp")
+
+## Back up each file/folder in bk_dirs
+for i in "${bkdirs[@]}"
+do
+  echo "************************************************************"
+  echo "Backing up $i"
+  rdiff-backup --print-statistics ~/$i $BKPATH/$i
+  
+  echo "Deleting files older than 4 weeks from $i"
+  rdiff-backup --remove-older-than 4W $BKPATH/$i
+done
+
+## Now output the collective space used.
+## Commented out since it is read intensive
+echo "************************************************************"
+echo "Hdd used for $BKPATH"
+du -chs $BKPATH
+echo "Memory of current data:"
+du -chs "${bkdirs[@]}"
