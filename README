@@ -4,19 +4,48 @@ The only things not here is my .vim folder and .ssh/config.
 .vim because I have not read up on submodules yet.
 .ssh/config because I don't want people to know my usernames and servers.
 
+
+If you wish to install the bash completion for rbackup, you must give it permission to write to /etc/bash_completion.d/
+
+i.e. on Ubuntu:
+sudo ./INSTALL
+
+
 ## Tour...
 bin/ is where all the binary files are kept.
+
 dotfiles/ stores more than just dotfiles. It stores crontabs and .vim (eventually) as well.
+
 dotfiles_old/ where old files are stored. Not that if INSTALL is ran more than once, then the original files in dotfiles_old will be deleted and replaced with symlinks... make a copy of dotfiles_old if you are worried.
+
 hooks/ Stores the hooks for ths project. INSTALL will create symlinks to them from .git/hooks/
+
 log/ used to store log files.
 templates/ templates I use often.
 
 
 ## rbackup
+Lives in ray/bin/rbackup.
+This script calls the customised backup scrips for each user and machine.
+Each customised backup script must be named backup_USERHOSTNAME, i.e. if my username is ray and my machine is called rice, then the customised backup script must be called backup_rayrice.
+
+This is so the rbackup script does not have to care about which files/folders needs to be backed up. A generic cron job would call rbackup but the actual backing up is handled by the customised scripts.
+
+rbackup takes care of the logging of the customised scripts.
 
 
+## Notes:
+The post-commit hook will push to the master branch after every commit. Change this to your needs. This is useful since we are dealing with you do not have to remember to push every time you commit.
 
+
+## Future works
+Possibly add a hook to listen to changes in the repository, since you do not want to forget to pull when you have made changes on a different machine.
+
+
+## This looks ugly.
+I need to learn to make my readme suck less. 
+This looks amazing: https://github.com/github/markup
+I suck.
 
 
 
