@@ -4,8 +4,17 @@ The only things not here is my .vim folder and .ssh/config.
 .vim because I have not read up on submodules yet.
 .ssh/config because I don't want people to know my usernames and servers.
 
+## Tour...
 bin/ is where all the binary files are kept.
 dotfiles/ stores more than just dotfiles. It stores crontabs and .vim (eventually) as well.
+dotfiles_old/ where old files are stored. Not that if INSTALL is ran more than once, then the original files in dotfiles_old will be deleted and replaced with symlinks... make a copy of dotfiles_old if you are worried.
+hooks/ Stores the hooks for ths project. INSTALL will create symlinks to them from .git/hooks/
+log/ used to store log files.
+templates/ templates I use often.
+
+
+## rbackup
+
 
 
 
