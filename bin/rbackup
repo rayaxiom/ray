@@ -4,12 +4,21 @@ set -eu
 ## The most recent backup log file
 NEWEST=
 
+## The default action, does the backup.
 run_backup()
 {
-  echo "Running ~/ray/bin/backup_${USER}${HOSTNAME} on $(date +"%F at %T")"
+  ## Tells user what it is doing.
+  echo "I am running ~/ray/bin/backup_${USER}${HOSTNAME}"
+  echo " on $(date +"%F at %T")"
+  
+  ## Create the log file name
   BK_FILE="bk_${USER}${HOSTNAME}_$(date +"%F").log"
+  
+  ## Run the correct script and redirect it to the log directory
   ~/ray/bin/backup_${USER}${HOSTNAME} > ~/ray/log/${BK_FILE} 2>&1
-  echo "Done... see ~/ray/log/${BK_FILE}"
+  
+  ## Tell user it's done and log file location
+  echo "I am done... see ~/ray/log/${BK_FILE}"
 }
 
 ## Displays the most recent backup log file
@@ -21,36 +30,27 @@ display_last_log()
 ## Clears all backup logs except for the most recent one.
 clear_logs()
 {
-  echo $NEWEST
-  find . -name 'bk_*' -type f -not -name $NEWEST -delete
+  find ~/ray/log/ -name 'bk_*' -type f -not -name $NEWEST -delete
 }
+
+###############################################################################
+# Equivalent of "main" starts here
+###############################################################################
 
 if [ $# -eq 0 ]; then
   run_backup
 else
 
-  ## Change to log directory
+  ## Change to log directory to get the filename ONLY (without and slashes)
   cd ~/ray/log/
 
   ## Get the most recent logfile
   NEWEST=`ls -t bk_${USER}${HOSTNAME}_* | head -1`
-  echo "$NEWEST"
-  #  for f in ~/ray/log/bk_${USER}${HOSTNAME}_*
-#  do
-#    if [ -z "$NEWEST" ]
-#    then 
-#        NEWEST=$f
-#    elif [ "$f" -nt "$NEWEST" ] 
-#    then
-#        NEWEST=$f
-#    fi
-#  done
-  
+   
   ## Either display the most recent log file or remove older ones
   if [ "$1" == "lastlog" ]; then
     display_last_log
   elif [ "$1" == "clearlog" ]; then
     clear_logs
   fi
-
 fi
