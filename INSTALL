@@ -30,7 +30,7 @@ OptionRead()
 # Setup post commit hook
 #==============================================================================
 echo "Symlinking hooks/post-commit"
-if [ -e ~/ray/git/hooks/post-commit ]; then
+if [ -e ~/ray/.git/hooks/post-commit ]; then
   echo ".git/hooks/post-commit already exists..."
   echo "I will not symlink to ./hooks/post-commit"
 else
@@ -94,6 +94,30 @@ do
     echo "~/$dir/$file does not exist. Perhaps you are not Ray."
   fi
 done
+
+echo "All dotfiles are loaded!"
+echo " "
+
+###############################################################################
+#==============================================================================
+# Load completion files
+#==============================================================================
+OptionPrompt "Do you want to load completion files?"
+reply=`OptionRead`
+echo " "
+if test "$reply" != "y" -a "$reply" != "Y" ; then
+  echo "Completion files not loaded."
+else
+  ## For bin/rbackup
+  if [ -e /etc/bash_completion.d/rbackup ];
+  then
+    echo "/etc/bash_completion.d/rbackup exists."
+    echo "I will not load completion for bin/rbackup"
+  else
+    cp ~/ray/bin/completion/rbackup /etc/bash_completion.d/
+    echo "Loaded completion file for rbackup"
+  fi
+fi
 
 
 ###############################################################################
