@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## Telling them!
+echo "I ran $0 on $(date +"%F at %T")"
+
 ## Target directory of backups
 BKPATH="/media/ray/MyBook1/bk_rayrice"
 
