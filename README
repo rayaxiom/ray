@@ -4,5 +4,13 @@ The only things not here is my .vim folder and .ssh/config.
 .vim because I have not read up on submodules yet.
 .ssh/config because I don't want people to know my usernames and servers.
 
+bin/ is where all the binary files are kept.
+dotfiles/ stores more than just dotfiles. It stores crontabs and .vim (eventually) as well.
+
+
+
+
+
+
 
 
