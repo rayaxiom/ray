@@ -1,6 +1,10 @@
 #!/bin/bash
 set -eu
 
+## Set the username in case I am running as root.
+cd ~/ray/log/
+USERNAME=$(<username)
+
 ## The most recent backup log file
 NEWEST=
 
@@ -8,14 +12,14 @@ NEWEST=
 run_backup()
 {
   ## Tells user what it is doing.
-  echo "I am running ~/ray/bin/backup_${USER}${HOSTNAME}"
+  echo "I am running ~/ray/bin/backup_${USERNAME}${HOSTNAME}"
   echo " on $(date +"%F at %T")"
   
   ## Create the log file name
-  BK_FILE="bk_${USER}${HOSTNAME}_$(date +"%F").log"
+  BK_FILE="bk_${USERNAME}${HOSTNAME}_$(date +"%F").log"
   
   ## Run the correct script and redirect it to the log directory
-  ~/ray/bin/backup_${USER}${HOSTNAME} > ~/ray/log/${BK_FILE} 2>&1
+  ~/ray/bin/backup_${USERNAME}${HOSTNAME} > ~/ray/log/${BK_FILE} #2>&1
   
   ## Tell user it's done and log file location
   echo "I am done... see ~/ray/log/${BK_FILE}"
@@ -40,7 +44,7 @@ list_logs()
   cd ~/ray/log/
 
   ## List all the logs for this user and machine.
-  ls -t1 bk_${USER}${HOSTNAME}_*
+  ls -t1 bk_${USERNAME}${HOSTNAME}_*
 }
 
 ## Clears all backup logs except for the most recent one.
@@ -65,7 +69,7 @@ else
   cd ~/ray/log/
 
   ## Get the most recent logfile
-  NEWEST=`ls -t bk_${USER}${HOSTNAME}_* | head -1`
+  NEWEST=`ls -t bk_${USERNAME}${HOSTNAME}_* | head -1`
    
   ## Either display the most recent log file or remove older ones
   if [ "$1" == "lastlog" ]; then
