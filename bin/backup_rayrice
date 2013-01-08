@@ -36,5 +36,10 @@ done
 echo "************************************************************"
 echo "Hdd used for $BKPATH"
 du -chs $BKPATH
+
+## Change to home directory
+cd
 echo "Memory of current data:"
 du -chs "${bkdirs[@]}"
+
+
