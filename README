@@ -34,6 +34,7 @@ This is so the rbackup script does not have to care about which files/folders ne
 rbackup takes care of the logging of the customised scripts.
 
 
+
 ## Notes:
 The post-commit hook will push to the master branch after every commit. Change this to your needs. This is useful since we are dealing with you do not have to remember to push every time you commit.
 
