@@ -33,6 +33,26 @@ clear_logs()
   find ~/ray/log/ -name 'bk_*' -type f -not -name $NEWEST -delete
 }
 
+## Clears all backup logs except for the most recent one.
+list_logs()
+{
+  ## Change to the logs directory
+  cd ~/ray/log/
+
+  ## List all the logs for this user and machine.
+  ls -t1 bk_${USER}${HOSTNAME}_*
+}
+
+## Clears all backup logs except for the most recent one.
+display_log()
+{
+  ## Change to log directory
+  cd ~/ray/log/
+
+  ## Cat the log
+  cat $1
+}
+
 ###############################################################################
 # Equivalent of "main" starts here
 ###############################################################################
@@ -52,5 +72,9 @@ else
     display_last_log
   elif [ "$1" == "clearlog" ]; then
     clear_logs
+  elif [ "$1" == "listlogs" ]; then
+    list_logs
+  elif [ "$1" == "displaylog" ]; then
+    display_log $2
   fi
 fi
