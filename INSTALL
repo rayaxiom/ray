@@ -30,18 +30,30 @@ OptionRead()
 
 ###############################################################################
 #==============================================================================
+# Set username - this is because cron runs job as root.
+#==============================================================================
+OptionPrompt "Please enter your username."
+USERNAME=`OptionRead`
+cd ~/ray/log/
+echo $USERNAME > username
+echo "Username is $USERNAME, this is stored in log/username"
+echo " "
+
+
+###############################################################################
+#==============================================================================
 # Setup post commit hook
 #==============================================================================
-echo "Symlinking hooks/post-commit"
-if [ -e ~/ray/.git/hooks/post-commit ]; then
-  echo ".git/hooks/post-commit already exists..."
-  echo "I will not symlink to ./hooks/post-commit"
-else
-  ln -s ~/ray/hooks/post-commit ~/ray/.git/hooks/post-commit
-fi
-
-echo "Done symlinking post-commit hook"
-echo " "
+#echo "Symlinking hooks/post-commit"
+#if [ -e ~/ray/.git/hooks/post-commit ]; then
+#  echo ".git/hooks/post-commit already exists..."
+#  echo "I will not symlink to ./hooks/post-commit"
+#else
+#  ln -s ~/ray/hooks/post-commit ~/ray/.git/hooks/post-commit
+#fi
+#
+#echo "Done symlinking post-commit hook"
+#echo " "
 
 
 ###############################################################################
@@ -130,7 +142,7 @@ fi
 #==============================================================================
 echo " "
 echo "Do you want to load Ray's crontab?"
-echo "See ~/ray/dotfiles/crontab_$USER$HOSTNAME"
+echo "See ~/ray/dotfiles/crontab_$USERNAME$HOSTNAME"
 echo "Your current crontab will be stored in"
 echo " "
 echo "    " $dir_old/
@@ -144,7 +156,7 @@ if test "$reply" != "y" -a "$reply" != "Y" ; then
 else
   CRONFILE_BK="crontab_${USER}${HOSTNAME}_$(date +"%F")"
   crontab -l > ~/$dir_old/$CRONFILE_BK
-  crontab ~/ray/dotfiles/crontab_$USER$HOSTNAME
+  crontab ~/ray/dotfiles/crontab_$USERNAME$HOSTNAME
   echo "Done... your previous crontab is stored in"
   echo " "
   echo "  " ~/$dir_old/$CRONFILE_BK
