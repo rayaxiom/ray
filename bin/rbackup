@@ -70,7 +70,7 @@ else
   ## Either display the most recent log file or remove older ones
   if [ "$1" == "lastlog" ]; then
     display_last_log
-  elif [ "$1" == "clearlog" ]; then
+  elif [ "$1" == "clearlogs" ]; then
     clear_logs
   elif [ "$1" == "listlogs" ]; then
     list_logs
