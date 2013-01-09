@@ -1,0 +1,21 @@
+
+
+## Target directory of backups. CHANGEME
+BKPATH="/media/ray/MyBook1/bk_rayrice"
+
+## Check if the backup directory exists
+if [ ! -e $BKPATH ]; then
+  echo "$BKPATH does not exist. Not backing up and exiting..."
+  exit
+fi
+
+declare -a bkdirs=("Downloads" \
+                   "learning" \
+                   "programming" \
+                   "temp" \
+                   "VirtualBoxVMs" \
+                   "Pictures")
+
+
+
+
