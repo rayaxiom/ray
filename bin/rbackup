@@ -50,8 +50,8 @@ get_size()
   cd
   echo "Memory of current data:"
   du -chs "${bkdirs[@]}"
-  echo "I am done outputting the size"
   
+  ## Tell the user that I am done. 
   echo "######################" 
   echo "I am done with getsize"
   echo "######################" 
