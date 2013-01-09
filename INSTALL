@@ -34,7 +34,7 @@ OptionRead()
 #==============================================================================
 OptionPrompt "Please enter your username."
 USERNAME=`OptionRead`
-cd ~/ray/log/
+cd ~/ray/userdata/
 echo $USERNAME > username
 echo "Username is $USERNAME, this is stored in log/username"
 echo " "
@@ -166,4 +166,6 @@ fi
 ###############################################################################
 echo " "
 echo "I finished!"
+echo "Please check that your userdata/bkdirs_usernamehostname" 
+echo "file is set properly"
 
