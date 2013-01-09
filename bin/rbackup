@@ -2,7 +2,7 @@
 set -eu
 
 ## Set the username in case I am running as root.
-cd ~/ray/log/
+cd ~/ray/userdata/
 USERNAME=$(<username)
 
 ## The most recent backup log file
@@ -11,18 +11,51 @@ NEWEST=
 ## The default action, does the backup.
 run_backup()
 {
-  ## Tells user what it is doing.
-  echo "I am running ~/ray/bin/backup_${USERNAME}${HOSTNAME}"
-  echo " on $(date +"%F at %T")"
+  ## Telling them!
+  echo "I ran $0 on $(date +"%F at %T")"
   
-  ## Create the log file name
-  BK_FILE="bk_${USERNAME}${HOSTNAME}_$(date +"%F").log"
+  ## Get the username
+  cd ~/ray/userdata/
+  USERNAME=$(<username)
   
-  ## Run the correct script and redirect it to the log directory
-  ~/ray/bin/backup_${USERNAME}${HOSTNAME} > ~/ray/log/${BK_FILE} #2>&1
+  source ~/ray/userdata/bkdirs_${USERNAME}${HOSTNAME}
   
-  ## Tell user it's done and log file location
-  echo "I am done... see ~/ray/log/${BK_FILE}"
+  ## Back up each file/folder in bk_dirs
+  for i in "${bkdirs[@]}"
+  do
+    echo "************************************************************"
+    echo "Backing up $i"
+    rdiff-backup --print-statistics ~/$i $BKPATH/$i
+    
+    echo "Deleting files older than 1 weeks from $i"
+    rdiff-backup --remove-older-than 1W $BKPATH/$i
+  done
+  
+  echo "###########################" 
+  echo "I am done with the backups!"
+  echo "###########################" 
+}
+
+get_size()
+{
+  source ~/ray/userdata/bkdirs_${USERNAME}${HOSTNAME}
+
+  ## output the collective space used.
+  echo "************************************************************"
+  
+  echo "Hdd used for $BKPATH"
+  du -chs $BKPATH
+  
+  ## Change to home directory
+  cd
+  echo "Memory of current data:"
+  du -chs "${bkdirs[@]}"
+  echo "I am done outputting the size"
+  
+  echo "######################" 
+  echo "I am done with getsize"
+  echo "######################" 
+
 }
 
 ## Displays the most recent backup log file
@@ -62,7 +95,14 @@ display_log()
 ###############################################################################
 
 if [ $# -eq 0 ]; then
-  run_backup
+  ## Create the log file name
+  BK_FILE="bk_${USERNAME}${HOSTNAME}_$(date +"%F").log"
+   
+  run_backup > ~/ray/log/${BK_FILE} 2>&1
+  
+  ## Tell user it's done and log file location
+  echo "I am done... see ~/ray/log/${BK_FILE}"
+
 else
 
   ## Change to log directory to get the filename ONLY (without and slashes)
@@ -80,5 +120,7 @@ else
     list_logs
   elif [ "$1" == "displaylog" ]; then
     display_log $2
+  elif [ "$1" == "getsize" ]; then
+    get_size > ~/ray/log/size_$NEWEST
   fi
 fi
