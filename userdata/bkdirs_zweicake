@@ -1,0 +1,19 @@
+
+
+## Target directory of backups. CHANGEME
+BKPATH="/media/2TBBK/bk_zweicake"
+
+## Check if the backup directory exists
+if [ ! -e $BKPATH ]; then
+  echo "$BKPATH does not exist. Not backing up and exiting..."
+  exit
+fi
+
+declare -a bkdirs=("Downloads" \
+                   "learning" \
+                   "programming" \
+                   "temp")
+
+
+
+
