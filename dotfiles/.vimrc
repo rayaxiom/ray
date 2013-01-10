@@ -115,18 +115,24 @@ amenu <silent>Tabs.&Previous :tabprevious<cr>
 
 
 " make the keys 'kl' to escape to improve efficiency.
-imap kl <Esc>:w<cr>
-vmap kl <Esc>:w<cr>
-nmap kl <Esc>:w<cr>
+imap kl <Esc>
+vmap kl <Esc>
+
 " make the keys 'kk' to escape, save and quit.
-imap \kl <Esc>:wq<cr>
-vmap \kl <Esc>:wq<cr>
-nmap \kl <Esc>:wq<cr>
+imap \kl <Esc>:w<cr>
+vmap \kl <Esc>:w<cr>
+nmap \kl <Esc>:w<cr>
+
+" make the keys 'kk' to escape, save and quit.
+imap \kk <Esc>:wq<cr>
+vmap \kk <Esc>:wq<cr>
+nmap \kk <Esc>:wq<cr>
+
 
 "nmap \kl :w<cr>:!./lll %<cr>
-"nmap \kl :w<cr>:! lll <cr>
-"imap \kl <Esc> :w<cr>:! lll <cr>
-"vmap \kl <Esc> :w<cr>:! lll <cr>
+nmap \ll <Esc> :w<cr>:! lll <cr>
+imap \ll <Esc> :w<cr>:! lll <cr>
+vmap \ll <Esc> :w<cr>:! lll <cr>
 
 
 "nmap \kk This will be used for compiling c++ file on this computer. Not on a
