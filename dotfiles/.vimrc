@@ -224,7 +224,10 @@ filetype indent on
 
 "Look in the current directory for tags, work up the tree towards root until one is found.
 set tags=./tags;/
+
+"C-\ - Open the definition in a new tab
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+"A-] - Open the definition in a vertical split
 map <A-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 
