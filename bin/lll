@@ -26,29 +26,42 @@ towulf()
 MYOOMPH_DIR="/home/zwei/oomphlib/oomphlib_current"
 WULFOOMPH_DIR="/home/mly/oomphlib_current"
 
+OOMPHPATH="user_drivers/lagrange_square"
 towulf "square0.cc" \
-       "$MYOOMPH_DIR/user_drivers/lagrange_square" \
-       "$WULFOOMPH_DIR/user_drivers/lagrange_square"
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
+towulf "run_sq0.sh" \
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
+towulf "run_sq0_validate.sh" \
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
+towulf "run_sq0_getvalidata.sh" \
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 
+
+OOMPHPATH="src/navier_stokes"
 towulf "lagrange_enforced_flow_preconditioner.h" \
-       "$MYOOMPH_DIR/src/navier_stokes" \
-       "$WULFOOMPH_DIR/src/navier_stokes"
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 
 towulf "constrained_navier_stokes_preconditioners.h" \
-       "$MYOOMPH_DIR/src/navier_stokes" \
-       "$WULFOOMPH_DIR/src/navier_stokes"
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 
 towulf "constrained_navier_stokes_preconditioners.cc" \
-       "$MYOOMPH_DIR/src/navier_stokes" \
-       "$WULFOOMPH_DIR/src/navier_stokes"
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 
+OOMPHPATH="src/generic"
 towulf "block_preconditioner.h" \
-       "$MYOOMPH_DIR/src/generic" \
-       "$WULFOOMPH_DIR/src/generic"
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 
 towulf "block_preconditioner.cc" \
-       "$MYOOMPH_DIR/src/generic" \
-       "$WULFOOMPH_DIR/src/generic"
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 
 
 
