@@ -1,6 +1,58 @@
 #!/bin/bash
 
-/home/ray/learning/phd/wulfling/oomphlib_current/user_drivers/lagrange_square/run_sq0.sh
+#/home/ray/learning/phd/wulfling/oomphlib_current/user_drivers/lagrange_square/run_sq0.sh
+
+
+# This function does stuff...
+towulf()
+{
+  FILE8=$1
+  FromPATH=$2
+  ToPATH=$3
+
+  scpfw $ToPATH/$FILE8 $FromPATH/raytemp/ > /dev/null
+  
+  if diff $FromPATH/$FILE8 $FromPATH/raytemp/$FILE8 > /dev/null
+  then
+    echo "$FILE8 is unchanged." > /dev/null
+  else
+    scptw $FromPATH/$FILE8 $ToPATH/
+  fi
+
+  rm -rf $FromPATH/raytemp/$FILE8
+}
+
+#PATH TO OOMPH DIR
+MYOOMPH_DIR="/home/zwei/oomphlib/oomphlib_current"
+WULFOOMPH_DIR="/home/mly/oomphlib_current"
+
+towulf "square0.cc" \
+       "$MYOOMPH_DIR/user_drivers/lagrange_square" \
+       "$WULFOOMPH_DIR/user_drivers/lagrange_square"
+
+towulf "lagrange_enforced_flow_preconditioner.h" \
+       "$MYOOMPH_DIR/src/navier_stokes" \
+       "$WULFOOMPH_DIR/src/navier_stokes"
+
+towulf "constrained_navier_stokes_preconditioners.h" \
+       "$MYOOMPH_DIR/src/navier_stokes" \
+       "$WULFOOMPH_DIR/src/navier_stokes"
+
+towulf "constrained_navier_stokes_preconditioners.cc" \
+       "$MYOOMPH_DIR/src/navier_stokes" \
+       "$WULFOOMPH_DIR/src/navier_stokes"
+
+towulf "block_preconditioner.h" \
+       "$MYOOMPH_DIR/src/generic" \
+       "$WULFOOMPH_DIR/src/generic"
+
+towulf "block_preconditioner.cc" \
+       "$MYOOMPH_DIR/src/generic" \
+       "$WULFOOMPH_DIR/src/generic"
+
+
+
+
 
 
 
