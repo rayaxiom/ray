@@ -27,6 +27,9 @@ MYOOMPH_DIR="/home/zwei/oomphlib/oomphlib_current"
 WULFOOMPH_DIR="/home/mly/oomphlib_current"
 
 OOMPHPATH="user_drivers/lagrange_square"
+towulf "square2.cc" \
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 towulf "square0.cc" \
        "$MYOOMPH_DIR/$OOMPHPATH" \
        "$WULFOOMPH_DIR/$OOMPHPATH"
@@ -39,7 +42,9 @@ towulf "run_sq0_validate.sh" \
 towulf "run_sq0_getvalidata.sh" \
        "$MYOOMPH_DIR/$OOMPHPATH" \
        "$WULFOOMPH_DIR/$OOMPHPATH"
-
+towulf "run_sq0_tests.sh" \
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 
 OOMPHPATH="src/navier_stokes"
 towulf "lagrange_enforced_flow_preconditioner.h" \
@@ -58,11 +63,12 @@ OOMPHPATH="src/generic"
 towulf "block_preconditioner.h" \
        "$MYOOMPH_DIR/$OOMPHPATH" \
        "$WULFOOMPH_DIR/$OOMPHPATH"
-
 towulf "block_preconditioner.cc" \
        "$MYOOMPH_DIR/$OOMPHPATH" \
        "$WULFOOMPH_DIR/$OOMPHPATH"
-
+towulf "general_purpose_block_preconditioners.h" \
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 
 
 
