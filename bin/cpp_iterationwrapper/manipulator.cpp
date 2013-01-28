@@ -7,21 +7,30 @@
 #include <vector>
 using namespace std;
 
+namespace RayGlobalVars
+{
+  enum LoopType {SIMPLE_LOOP, BETA, GAMMA};
+}
 
-
-int main(int argc, char* argv[])
-{ 
-  string line;
-  ifstream myfile (argv[1]);
-  vector< vector<string> > tokens;
+void get_tokens(string &myfile_str, unsigned &ntokens,
+                vector<vector<string> > &tokens)
+{
+  // Set the ntokens to 0, it should already be 0.
+  ntokens = 0;
   
+  // The file
+  ifstream myfile (myfile_str.c_str());
+  
+  // string for holding the current line.
+  string line;
+   
   // Here we split the file per row
   // Then within each row, we split it per words 
   if (myfile.is_open())
   {
     while ( myfile.good() && getline(myfile,line))
     {
-      //getline (myfile,line);
+      // the current tokens
       vector<string> current_line_tokens;
       
       
@@ -41,11 +50,12 @@ int main(int argc, char* argv[])
       // size()-1: the average of the values
       //
       // I only want to keep the averages for now...
-      unsigned ntokens = current_line_tokens.size();
-      
+      unsigned ncurrenttokens = current_line_tokens.size();
       vector<string> temp;
-      temp.push_back(current_line_tokens[ntokens-1]);
+      temp.push_back(current_line_tokens[ncurrenttokens-1]);
       
+      // Update the total number of tokens we decide to keep.
+      ntokens += temp.size();
       tokens.push_back(temp);
 
     }
@@ -54,8 +64,83 @@ int main(int argc, char* argv[])
   {
     cout << "Unable to open file" << endl;
   }
+}
 
+void check_nrows_ncols(unsigned &nrows, unsigned &ncols, unsigned &ntokens)
+{
+  unsigned nrowsxncols = nrows*ncols;
+  if(nrowsxncols != ntokens)
+  {
+    std::cout << "nrow * ncol = " << nrows << " x " << ncols 
+              << " = " << nrowsxncols  << std::endl;
+    std::cout << "But ntokens = " << ntokens << std::endl;
+    std::cout << "Is this correct? (y/n, default is n)" << std::endl; 
+    string answer;
+    std::cin >> answer;
+
+    if((answer.compare("y") == 0) || (answer.compare("Y") == 0))
+    {
+      std::cout << "Okay... you are strange..." << std::endl;
+    }
+    else
+    {
+      std::cout << "Fix this using maniedit and re-run maniprint" << std::endl; 
+      pause();
+    }
+  }
+}
+
+void print_tokens(vector<vector<string> >&tokens, unsigned ntokens)
+{
+  unsigned nrows = 1; //36;
+  unsigned ncols = 17; //7;
+  RayGlobalVars::LoopType current_loop_type = RayGlobalVars::SIMPLE_LOOP;
   
+  check_nrows_ncols(nrows,ncols,ntokens);
+
+  switch(current_loop_type)
+  {
+    case RayGlobalVars::SIMPLE_LOOP :
+    {
+      // This is a simple two-loop scheme loop.
+      //
+      // 0,  1,  2,  3,  4,  5,  6
+      // 7,  8,  9,  10, 11, 12, 13
+      // 14, 15, 16, 17, 18, 19, 20
+      // 21, 22, 23, 24, 25, 26, 27
+      // 28, 29, 30, 31, 32, 33, 34
+      //
+      // 35, 36, 37, 38, 39, 40, 41
+      // 42, 43, 44, 45, 46, 47, 48
+      // 49, 50, 51, 52, 53, 54, 55
+      // 56, 57, 58, 59, 60, 61, 62
+      // 63, 64, 65, 66, 67, 68, 69
+      for(unsigned i = 0; i < nrows; i++) // Goes through the rows
+      {
+        for(unsigned j = 0; j < ncols; j++) // Goes through the columns
+        {
+          std::cout << tokens[j + i*ncols][0] << " ";
+        }
+        std::cout << endl;
+      }
+    } break;
+    default:
+    {
+      std::cout << "I do not recognise this loop type..." << std::endl; 
+      pause();
+    } break;
+  }
+  
+}
+
+int main(int argc, char* argv[])
+{ 
+  std::string myfilename(argv[1]);
+  std::vector< vector<string> > tokens;
+  unsigned ntokens = 0;
+  
+  get_tokens(myfilename,ntokens,tokens);
+  print_tokens(tokens,ntokens);
   // Here I am looping through everything to test if it works.
   // It does!
   /*
@@ -140,35 +225,5 @@ int main(int argc, char* argv[])
   }
   // */
 
-  //*
-  //
-  // This is a simple two-loop scheme loop.
-  //
-  // 0,  1,  2,  3,  4,  5,  6
-  // 7,  8,  9,  10, 11, 12, 13
-  // 14, 15, 16, 17, 18, 19, 20
-  // 21, 22, 23, 24, 25, 26, 27
-  // 28, 29, 30, 31, 32, 33, 34
-  //
-  // 35, 36, 37, 38, 39, 40, 41
-  // 42, 43, 44, 45, 46, 47, 48
-  // 49, 50, 51, 52, 53, 54, 55
-  // 56, 57, 58, 59, 60, 61, 62
-  // 63, 64, 65, 66, 67, 68, 69
- // 
-  unsigned n_rows = 1; //36;
-  unsigned n_cols = 7; //7;
-  for(unsigned i = 0; i < n_rows; i++) // Goes through the rows
-  {
-    for(unsigned j = 0; j < n_cols; j++) // Goes through the columns
-    {
-      cout << tokens[j + i*n_cols][0] << " ";
-      //cout << j + i*7 << " ";
-    }
-    cout << endl;
-  }
-  // */
-
-
-  return 0;
+  return EXIT_SUCCESS;
 }
