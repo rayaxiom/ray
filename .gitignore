@@ -2,7 +2,6 @@
 *.o
 
 # Compiled binary files 
-bin/cpp/manipulator
-
+bin/cpp_iterationwrapper/manipulator
 
 
