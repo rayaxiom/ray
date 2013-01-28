@@ -27,6 +27,12 @@ MYOOMPH_DIR="/home/zwei/oomphlib/oomphlib_current"
 WULFOOMPH_DIR="/home/mly/oomphlib_current"
 
 OOMPHPATH="user_drivers/lagrange_square"
+towulf "rayheader.h" \
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
+towulf "square1.cc" \
+       "$MYOOMPH_DIR/$OOMPHPATH" \
+       "$WULFOOMPH_DIR/$OOMPHPATH"
 towulf "square2.cc" \
        "$MYOOMPH_DIR/$OOMPHPATH" \
        "$WULFOOMPH_DIR/$OOMPHPATH"
