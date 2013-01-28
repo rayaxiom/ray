@@ -1,9 +1,12 @@
 #!/bin/bash
 
-STR=$(pwd)
-cd /home/raymon/programming/tools/wrap_around/
+CURRENT_DIR=$(pwd)
+
+grep "RAYITS" $1 > manipulator_temp
+cd ~/ray/bin/cpp_iterationwrapper/
 make
-./manipulator $STR/$1
+./manipulator $CURRENT_DIR/manipulator_temp
+rm -rf $CURRENT_DIR/manipulator_temp
 #echo $(pwd)
 #echo $STR
 
