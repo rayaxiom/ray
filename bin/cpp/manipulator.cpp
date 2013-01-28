@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-  
+ 
   string line;
   ifstream myfile (argv[1]);
   vector< vector<string> > tokens;
@@ -19,28 +19,43 @@ int main(int argc, char* argv[])
   // Then within each row, we split it per words 
   if (myfile.is_open())
   {
-    while ( myfile.good() )
+    while ( myfile.good() && getline(myfile,line))
     {
-      getline (myfile,line);
-      vector<string>  current_line_tokens;
+      //getline (myfile,line);
+      vector<string> current_line_tokens;
+      
       
       istringstream iss(line);
       copy(istream_iterator<string>(iss),
            istream_iterator<string>(),
            back_inserter<vector<string> >(current_line_tokens));
-      tokens.push_back(current_line_tokens);
+      
+      // current_line_tokens now contains tokens delimited by space and tabs.
+      // i.e.
+      // RAYITS:	0	68 250 256 	191.3(3)
+      // 
+      // So indices:
+      // 0 - the "key"
+      // 1 - the number of Newton solves
+      // 2 - size()-2: the values of w/e key defines
+      // size()-1: the average of the values
+      //
+      // I only want to keep the averages for now...
+      unsigned ntokens = current_line_tokens.size();
+      
+      vector<string> temp;
+      temp.push_back(current_line_tokens[ntokens-1]);
+      
+      tokens.push_back(temp);
+
     }
   }
   else
   {
     cout << "Unable to open file" << endl;
   }
- 
 
-
-
-
-
+  
   // Here I am looping through everything to test if it works.
   // It does!
   /*
@@ -141,8 +156,8 @@ int main(int argc, char* argv[])
   // 56, 57, 58, 59, 60, 61, 62
   // 63, 64, 65, 66, 67, 68, 69
  // 
-  unsigned n_rows = 48; //36;
-  unsigned n_cols = 6; //7;
+  unsigned n_rows = 1; //36;
+  unsigned n_cols = 7; //7;
   for(unsigned i = 0; i < n_rows; i++) // Goes through the rows
   {
     for(unsigned j = 0; j < n_cols; j++) // Goes through the columns
