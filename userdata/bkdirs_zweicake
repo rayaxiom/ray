@@ -12,7 +12,9 @@ fi
 declare -a bkdirs=("Downloads" \
                    "learning" \
                    "programming" \
-                   "temp")
+                   "temp" \
+                   "oomphlib")
+
 
 
 
