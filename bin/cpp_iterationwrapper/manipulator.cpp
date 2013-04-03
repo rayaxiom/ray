@@ -22,19 +22,64 @@ void get_tokens(string &myfile_str, unsigned &ntokens,
   ifstream myfile (myfile_str.c_str());
   
   // string for holding the current line.
-  string line;
+  string RAYDOINGline;
+  string RAYITSline;
+
+  string RAYDOING="RAYDOING";
+  string RAYITS="RAYITS";
    
   // Here we split the file per row
   // Then within each row, we split it per words 
   if (myfile.is_open())
   {
-    while ( myfile.good() && getline(myfile,line))
+    bool skip_raydoing = false;
+    
+    // Get the first line in the pair
+    while ( myfile.good() )
     {
+      // Get the first line in the pair
+      if(!skip_raydoing)
+      {
+        getline(myfile,RAYDOINGline);
+      }
+      else
+      {
+        skip_raydoing = false;
+      }
+
+      // Get the second line in the pair
+      getline(myfile,RAYITSline);
+      
+      //std::cout << RAYDOINGline << std::endl;
+      //std::cout << RAYITSline << std::endl; 
+      
+      
+      if (std::string::npos != RAYITSline.find(RAYDOING))
+      {
+        std::cout << "There is a failed test." << std::endl;
+        skip_raydoing = true;
+      }
+      
+      // If we need to skip the next ray_doing, this means
+      // there is a failed test in the current iteration...
+      // So we put an empty string in for this and prepare for
+      // the next pair.
+      if(skip_raydoing)
+      {
+        vector<string> temp;
+        temp.push_back("FAIL");
+        tokens.push_back(temp);
+        ntokens++;
+
+        // Prepare the next pair.
+        RAYDOINGline = RAYITSline;
+      }
+      else
+      {
       // the current tokens
       vector<string> current_line_tokens;
       
-      
-      istringstream iss(line);
+      istringstream iss(RAYITSline);
       copy(istream_iterator<string>(iss),
            istream_iterator<string>(),
            back_inserter<vector<string> >(current_line_tokens));
@@ -57,13 +102,20 @@ void get_tokens(string &myfile_str, unsigned &ntokens,
       // Update the total number of tokens we decide to keep.
       ntokens += temp.size();
       tokens.push_back(temp);
-
+      }
     }
   }
   else
   {
     cout << "Unable to open file" << endl;
   }
+//  std::cout << "tokens length: " << tokens.size() << std::endl; 
+//  for(unsigned i = 0; i < tokens.size(); i++)
+//  {
+//    std::cout << "i: " << i << ", token: " << tokens[i][0] << std::endl; 
+//    
+//  }
+// pause(); 
 }
 
 void check_nrows_ncols(unsigned &nrows, unsigned &ncols, unsigned &ntokens)
@@ -92,8 +144,8 @@ void check_nrows_ncols(unsigned &nrows, unsigned &ncols, unsigned &ntokens)
 
 void print_tokens(vector<vector<string> >&tokens, unsigned ntokens)
 {
-  unsigned nrows = 1; //36;
-  unsigned ncols = 17; //7;
+  unsigned nrows = 12; //36;
+  unsigned ncols = 16; //7;
   RayGlobalVars::LoopType current_loop_type = RayGlobalVars::SIMPLE_LOOP;
   
   check_nrows_ncols(nrows,ncols,ntokens);

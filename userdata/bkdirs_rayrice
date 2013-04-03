@@ -14,7 +14,8 @@ declare -a bkdirs=("Downloads" \
                    "programming" \
                    "temp" \
                    "VirtualBoxVMs" \
-                   "Pictures")
+                   "Pictures"\
+                   "oomphlib")
 
 
 

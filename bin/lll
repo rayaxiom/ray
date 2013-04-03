@@ -2,30 +2,156 @@
 
 #/home/ray/learning/phd/wulfling/oomphlib_current/user_drivers/lagrange_square/run_sq0.sh
 
+#PATH TO OOMPH DIR
+MYOOMPH_DIR=""
+WULFOOMPH_DIR=""
+OOMPHPATH=""
+
 
 # This function does stuff...
 towulf()
 {
   FILE8=$1
-  FromPATH=$2
-  ToPATH=$3
+  FromPATH="$MYOOMPH_DIR/$OOMPHPATH"
+  ToPATH="$WULFOOMPH_DIR/$OOMPHPATH"
 
-  scpfw $ToPATH/$FILE8 $FromPATH/raytemp/ > /dev/null
+  scpfw $ToPATH/$FILE8 $FromPATH/$FILE8.raytemp > /dev/null
   
-  if diff $FromPATH/$FILE8 $FromPATH/raytemp/$FILE8 > /dev/null
+  if diff $FromPATH/$FILE8 $FromPATH/$FILE8.raytemp > /dev/null
   then
     echo "$FILE8 is unchanged." > /dev/null
   else
     scptw $FromPATH/$FILE8 $ToPATH/
   fi
 
-  rm -rf $FromPATH/raytemp/$FILE8
+  rm -rf $FromPATH/$FILE8.raytemp
 }
+###################################################################
+#MYOOMPH_DIR="/home/zwei/oomphlib/oomphlib_current"
+#WULFOOMPH_DIR="/home/mly/oomphlib_current"
+#
+#OOMPHPATH="src/navier_stokes"
+#towulf "constrained_navier_stokes_preconditioners.cc"
+#towulf "lagrange_enforced_flow_preconditioner.h"
 
-#PATH TO OOMPH DIR
-MYOOMPH_DIR="/home/zwei/oomphlib/oomphlib_current"
-WULFOOMPH_DIR="/home/mly/oomphlib_current"
 
+###################################################################
+##################################################################
+MYOOMPH_DIR="/home/zwei/oomphlib/version392_clean_checkout"
+WULFOOMPH_DIR="/home/mly/version392_clean_checkout"
+
+OOMPHPATH="src/generic"
+towulf "block_preconditioner.cc"
+towulf "block_preconditioner.h"
+towulf "matrices.h"
+towulf "matrices.cc"
+#towulf "linear_algebra_distribution.cc"
+#towulf "linear_algebra_distribution.h"
+#towulf "double_vector.cc"
+#towulf "double_vector.h"
+
+OOMPHPATH="src/multi_physics"
+towulf "pseudo_elastic_preconditioner.cc"
+towulf "pseudo_elastic_preconditioner.h"
+towulf "pseudo_elastic_fsi_preconditioner.cc"
+towulf "pseudo_elastic_fsi_preconditioner.h"
+
+OOMPHPATH="demo_drivers/interaction/pseudo_solid_collapsible_tube"
+towulf "pseudo_solid_collapsible_tube_work.cc"
+
+#OOMPHPATH="self_test/mpi/vector_concatenation"
+#towulf "vector_concatenation.cc"
+
+#OOMPHPATH="self_test/mpi/vector_split"
+#towulf "vector_split.cc"
+
+####################################################################
+#OOMPHPATH="self_test/mpi/matrix_concatenation"
+#towulf "matrix_concatenation.cc"
+##towulf "validate.sh"
+#
+#OOMPHPATH="src/generic"
+#towulf "matrices.cc"
+#towulf "matrices.h"
+#towulf "block_preconditioner.h"
+#towulf "block_preconditioner.cc"
+#
+#
+#OOMPHPATH="src/multi_physics"
+#towulf "pseudo_elastic_preconditioner.h"
+#towulf "pseudo_elastic_preconditioner.cc"
+#
+#OOMPHPATH="demo_drivers/interaction/pseudo_solid_collapsible_tube"
+#towulf "pseudo_solid_collapsible_tube.cc"
+#
+###################################################################
+
+
+#OOMPHPATH="self_test/mpi/matrix_concatenation"
+#towulf "matrix_concatenation.cc"
+#towulf "validate.sh"
+
+#OOMPHPATH="user_drivers/demo_driver_cat"
+#towulf "concatenate_matrices.cc"
+
+#OOMPHPATH="user_drivers/demo_driver_add"
+#towulf "add_matrices.cc"
+
+#OOMPHPATH="src/generic"
+#towulf "block_preconditioner.h"
+#towulf "matrices.h"
+#towulf "matrices.cc"
+
+#OOMPHPATH="src/navier_stokes"
+#towulf "navier_stokes_preconditioners.h"
+#towulf "navier_stokes_preconditioners.cc"
+#towulf "lagrange_enforced_flow_preconditioner.h"
+
+#OOMPHPATH="user_drivers/lagrange_sq_curve"
+#towulf "curvedsq0.cc"
+#towulf "curvedsq0.sh"
+#towulf "curvedsq1.cc"
+#towulf "rayheader.h"
+
+
+
+#OOMPHPATH="user_drivers/lagrange_square"
+#towulf "square3_PowLP2v.cc"
+#towulf "square3_PowNP2v.cc"
+#towulf "square3_PowTP2v.cc"
+#towulf "square3_TfwLP2v.cc"
+#towulf "square3_TfwNP2v.cc"
+#towulf "square3_TfwTP2v.cc"
+#towulf "square3_TfwLP2v_3diri.cc"
+#towulf "square3_TfwNP2v_3diri.cc"
+#towulf "square3_TfwTP2v_3diri.cc"
+#
+#towulf "square3_vanlsc_Ptr.cc"
+#towulf "square3_vanlsc_Pt.cc"
+#towulf "square3_vanlsc_Pr.cc"
+
+#towulf "square3_cmpPoTf_Po.cc"
+#towulf "square3_cmpPoTf_Tf.cc"
+
+#towulf "square3_cmpPoTf_TfP2v.cc"
+#towulf "square3_cmpPoTf_TfP2v1p.cc"
+#towulf "square3_cmpPoTf_TfP1v.cc"
+#towulf "square3_cmpPoTf_TfP1v1p.cc"
+
+#towulf "square3_PowL.cc"
+#towulf "square3_PonL.cc"
+#towulf "square3_cmpPoTf_Po.cc"
+#towulf "square3_PowLP2v1p.cc"
+#towulf "square3_PonLP2v1p.cc"
+#towulf "square3_cmpPoTf_Tf.cc"
+
+
+#OOMPHPATH="user_drivers/lagrange_qcirc2D"
+#towulf "qcirc2D0.cc"
+
+
+## Below are lagrange_square files
+: <<'ENDCOMMENT'
 OOMPHPATH="user_drivers/lagrange_square"
 towulf "rayheader.h" \
        "$MYOOMPH_DIR/$OOMPHPATH" \
@@ -76,7 +202,7 @@ towulf "general_purpose_block_preconditioners.h" \
        "$MYOOMPH_DIR/$OOMPHPATH" \
        "$WULFOOMPH_DIR/$OOMPHPATH"
 
-
+ENDCOMMENT
 
 
 

@@ -27,8 +27,8 @@ run_backup()
     echo "Backing up $i"
     rdiff-backup --print-statistics ~/$i $BKPATH/$i
     
-    echo "Deleting files older than 1 weeks from $i"
-    rdiff-backup --remove-older-than 1W $BKPATH/$i
+    #echo "Deleting files older than 1 weeks from $i"
+    #rdiff-backup --remove-older-than --force 52W $BKPATH/$i
   done
   
   echo "###########################" 
