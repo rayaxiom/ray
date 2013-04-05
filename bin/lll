@@ -1,6 +1,15 @@
 #!/bin/bash
 
 #/home/ray/learning/phd/wulfling/oomphlib_current/user_drivers/lagrange_square/run_sq0.sh
+MBASE=""
+if [ $HOSTNAME == "onigiri" ]; then
+  MBASE="/home/ray"
+elif [ $HOSTNAME == "cake" ]; then
+  MBASE="/home/zwei"
+else
+  echo "There is no MBASE machine $HOSTNAME defined."
+fi
+
 
 #PATH TO OOMPH DIR
 MYOOMPH_DIR=""
@@ -37,7 +46,7 @@ towulf()
 
 ###################################################################
 ##################################################################
-MYOOMPH_DIR="/home/zwei/oomphlib/version392_clean_checkout"
+MYOOMPH_DIR="${MBASE}/oomphlib/version392_clean_checkout"
 WULFOOMPH_DIR="/home/mly/version392_clean_checkout"
 
 OOMPHPATH="src/generic"
