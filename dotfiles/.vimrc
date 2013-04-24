@@ -64,7 +64,7 @@ set hlsearch " Highlight search.
 "set hidden             " Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
 
-
+"set smartindent
 set tabstop=2 " Number of spaces that a tab in a file counts for.
 set shiftwidth=2 "Number of spaces to use for each step of (auto)indent. 
 set expandtab " In Insert mode: Use the appropriate number of spaces to insert a <Tab>.
@@ -72,7 +72,18 @@ set expandtab " In Insert mode: Use the appropriate number of spaces to insert a
 set number " Show line number
 
 set cursorline " Show cursor line
-set cursorcolumn " Show cursor solumn
+set cursorcolumn " Show cursor column
+
+" my attemp to do GNU-style indentation. It failed.
+"function! GnuIndent()
+"  setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
+"  setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
+"  setlocal shiftwidth=2
+"  setlocal tabstop=2
+"endfunction
+"au FileType c,cpp,cc call GnuIndent() 
+
+
 
 "2match ErrorMsg /\%>79v.\+/ " Highlight chars if col > 79
 3match errorMsg /[^\t]\zs\t\+/ " Highlight tabs which are not at the beginning of a line.
@@ -230,4 +241,9 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "A-] - Open the definition in a vertical split
 map <A-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-
+" search and replace highligted text
+" By pressing ctrl + r in the visual mode you will be prompted to 
+" enter text to replace with. 
+" Press enter and then confirm each change you agree with 'y' or 
+" decline with 'n'.
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
