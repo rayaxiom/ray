@@ -2,6 +2,9 @@
 
 CURRENT_DIR=$(pwd)
 
+# RAYITS
+# RAYPREC
+# RAYLIN
 egrep "RAYDOING|RAYITS" $1 > manipulator_temp
 cd ~/ray/bin/cpp_iterationwrapper/
 make

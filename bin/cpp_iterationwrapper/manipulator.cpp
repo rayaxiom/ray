@@ -26,7 +26,6 @@ void get_tokens(string &myfile_str, unsigned &ntokens,
   string RAYITSline;
 
   string RAYDOING="RAYDOING";
-  string RAYITS="RAYITS";
    
   // Here we split the file per row
   // Then within each row, we split it per words 
@@ -137,15 +136,14 @@ void check_nrows_ncols(unsigned &nrows, unsigned &ncols, unsigned &ntokens)
     else
     {
       std::cout << "Fix this using maniedit and re-run maniprint" << std::endl; 
-      pause();
     }
   }
 }
 
 void print_tokens(vector<vector<string> >&tokens, unsigned ntokens)
 {
-  unsigned nrows = 12; //36;
-  unsigned ncols = 16; //7;
+  unsigned nrows = 18; //36;
+  unsigned ncols = 4; //7;
   RayGlobalVars::LoopType current_loop_type = RayGlobalVars::SIMPLE_LOOP;
   
   check_nrows_ncols(nrows,ncols,ntokens);
@@ -179,7 +177,6 @@ void print_tokens(vector<vector<string> >&tokens, unsigned ntokens)
     default:
     {
       std::cout << "I do not recognise this loop type..." << std::endl; 
-      pause();
     } break;
   }
   

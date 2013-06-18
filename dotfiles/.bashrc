@@ -103,7 +103,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
-export PATH=$PATH:/usr/local/MATLAB/R2011a/bin
+export PATH=$PATH:/usr/local/MATLAB/R2013a/bin:/home/ray/oomphlib/clean_checkout/bin
 alias cdprivateuser_drivers='cd /home/raymon/learning/phd/wulfling/first_version/user_drivers'
 alias matlabno='matlab -nojvm -nodisplay -nodesktop'
 export PATH=$PATH:~/ray/bin
