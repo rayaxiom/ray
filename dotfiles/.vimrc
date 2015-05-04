@@ -89,10 +89,21 @@ set cursorcolumn " Show cursor column
 3match errorMsg /[^\t]\zs\t\+/ " Highlight tabs which are not at the beginning of a line.
 
 "if exists('+colorcolumn')
- set colorcolumn=80
+ set colorcolumn=77
 "else
-"  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+"  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>78v.\+', -1)
 "endif
+
+
+autocmd FileType tex set tw=76
+
+"set tw=77
+"set formatoptions+=t
+
+set spell spelllang=en_gb
+setlocal spell spelllang=en_gb
+
+
 
 " A somewhat more informative status line.
 " Name of the file that I am editing
@@ -104,6 +115,8 @@ set cursorcolumn " Show cursor column
 " Length of the file (line count)
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\[HEX=\%02.2B]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
 set laststatus=2 " Show the status line.
+
+set tabpagemax=100
 
 " New stuff from Hacking Vim 7.2
 
@@ -159,29 +172,74 @@ endif
 
 
 "vundle start"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype off " required!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" My Bundles here:
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+Plugin 'c.vim'
+Plugin 'taglist.vim'
+Plugin 'snipMate'
+Plugin 'FuzzyFinder'
+
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+
+
+
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" Avoid a name conflict with L9
+"Plugin 'user/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
 "
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
+""""""""""""""""" Old vundle stuff
+
 " original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'mivok/vimtodo'
+"Bundle 'tpope/vim-fugitive'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'tpope/vim-rails.git'
+"Bundle 'LaTeX-Box-Team/LaTeX-Box'
+"Bundle 'mivok/vimtodo'
 
 " vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'c.vim'
-Bundle 'taglist.vim'
-Bundle 'snipMate'
 
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
@@ -206,8 +264,11 @@ Bundle 'snipMate'
 "vim-latex start""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-let g:LatexBox_latexmk_options = "-pvc -pdfps"
-
+let g:LatexBox_latexmk_options = "-pdfps --shell-escape"
+"""let g:LatexBox_latexmk_options = -pdflatex='pdflatex -synctex=1 \%O \%S'"
+"""let g:LatexBox_latexmk_options = -pdflatex='pdflatex -synctex=1 -interaction=nonstopmode --shell-escape %O %S'"
+let g:LatexBox_latexmk_async=1
+let g:LatexBox_latexmk_preview_continuously=1
 
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 filetype plugin on
@@ -247,3 +308,10 @@ map <A-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " Press enter and then confirm each change you agree with 'y' or 
 " decline with 'n'.
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+
+:set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
+:set complete-=k complete+=k
+
+
+
+

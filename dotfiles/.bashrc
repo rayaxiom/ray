@@ -3,11 +3,14 @@
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -20,11 +23,15 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -77,6 +84,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+alias rrgrep='grep -rnI --exclude=tags --color=auto'
+alias rrfgrep='fgrep -rnI --exclude=tags --color=auto'
+alias rregrep='egrep -rnI --exclude=tags --color=auto'
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -98,35 +109,100 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
 
-
-export PATH=$PATH:/usr/local/MATLAB/R2013a/bin:/home/ray/oomphlib/clean_checkout/bin
-alias cdprivateuser_drivers='cd /home/raymon/learning/phd/wulfling/first_version/user_drivers'
 alias matlabno='matlab -nojvm -nodisplay -nodesktop'
-export PATH=$PATH:~/ray/bin
-source ~/ray/dotfiles/.bashrc_alias
+alias gvim='gvim -p'
+export PATH=$PATH:/home/ray/ray/bin
+source /home/ray/ray/dotfiles/.bashrc_alias
+
+kancolle_api_file="/home/ray/kancolle_api_file"
+kancolle_api=$(grep "mainD2" $kancolle_api_file)
+chromium_command="chromium-browser --disk-cache-size=1073741824 --disk-cache-dir=/home/ray/chromium_cache"
+alias kkl="nohup $chromium_command  \"$kancolle_api\" > /dev/null 2>&1 &"
 
 export EDITOR=vim
 
-# Prompt modifications
-# ============================================================
-# In git line in prompt: show symbols for non-clean state
-GIT_PS1_SHOWDIRTYSTATE=1
+OOMPHDIR="/home/ray/oomphlib/mpi_debug_paranoid"
+OOMPHDIRUDRI="$OOMPHDIR/user_drivers"
+OOMPHOPT='/home/ray/oomphlib/mpi_optimized'
+OOMPHOPTUDRI="$OOMPHOPT/user_drivers"
 
-# Append git branch followed by newline and $ to prompt. Note that we HAVE to
-# use single quotes for the __git_ps1 part. Stuff in \[ \] is colour commands.
 
-gitbranch()
+export PATH=$PATH:$OOMPHDIR/bin
+
+
+
+get_oomph_git_info()
 {
-  if type __git_ps1 &> /dev/null
-  then
-    __git_ps1
-  else
-    echo
-  fi
+  CURRENT_DIR=`pwd`
+
+  cd $OOMPHDIR && \
+  git log -1 > $CURRENT_DIR/git_rev_revision && \
+  cd $OOMPHDIRUDRI && \
+  git log -1 > $CURRENT_DIR/git_rev_user_driver && \
+  cd $CURRENT_DIR
+}
+
+synoomph()
+{
+  cd $OOMPHDIR && \
+  git push --force origin master && \
+  cd $OOMPHDIRUDRI && \
+  git push --force origin master && \
+  cd $OOMPHOPT && \
+  git fetch --all && \
+  git reset --hard origin/master && \
+  cd $OOMPHOPTUDRI && \
+  git fetch --all && \
+  git reset --hard origin/master && \
+  cd $OOMPHOPT && \
+  ./autogen_quick.sh --rebuild --jobs=4 && \
+  cd $OOMPHOPTUDRI
+}
+
+pushonly()
+{
+  local CURRENTDIR=`pwd`
+  cd $OOMPHDIR && \
+  git push --force origin master && \
+  cd $OOMPHDIRUDRI && \
+  git push --force origin master && \
+  cd $CURRENTDIR
+}
+
+pullonly()
+{
+  local CURRENTDIR=`pwd`
+  cd $OOMPHOPT && \
+  git fetch --all && \
+  git reset --hard origin/master && \
+  cd $OOMPHOPTUDRI && \
+  git fetch --all && \
+  git reset --hard origin/master && \
+  cd $CURRENTDIR
+}
+
+pponly()
+{
+  local CURRENTDIR=`pwd`
+  cd $OOMPHDIR && \
+  git push --force origin master && \
+  cd $OOMPHDIRUDRI && \
+  git push --force origin master && \
+  cd $OOMPHOPT && \
+  git fetch --all && \
+  git reset --hard origin/master && \
+  cd $OOMPHOPTUDRI && \
+  git fetch --all && \
+  git reset --hard origin/master && \
+  cd $CURRENTDIR
 }
 
 # Now we can set up the prompt
@@ -160,7 +236,6 @@ function pdfpextr()
 }
 
 
-
 # Map Esc key to Caplocks.
 #xmodmap -e "clear lock"
 #xmodmap -e "keycode 0x42 = Escape"
@@ -169,4 +244,47 @@ function pdfpextr()
 #xmodmap -e "keycode 0x42 = Caps_Lock"
 #xmodmap -e "add lock = Caps_Lock"
 
-[ -s ~/".scm_breeze/scm_breeze.sh" ] && source ~/".scm_breeze/scm_breeze.sh"
+#[ -s ~/".scm_breeze/scm_breeze.sh" ] && source ~/".scm_breeze/scm_breeze.sh"
+
+# When using make, errors are red, warnings are yellow
+make()
+{
+  pathpat="^.*:[0-9]+"
+  ccred=$(echo -e "\033[0;31m")
+  ccyellow=$(echo -e "\033[0;33m")
+  ccend=$(echo -e "\033[0m")
+  /usr/bin/make "$@" 2>&1 | sed -E -e "/[Ee]rror[: ]/ s%$pathpat%$ccred&$ccend%g" -e "/[Ww]arning[: ]/ s%$pathpat%$ccyellow&$ccend%g"
+  return ${PIPESTATUS[0]}
+}
+
+
+# Opens new tab in current working directory
+[[ -s "/etc/profile.d/vte.sh" ]] && . "/etc/profile.d/vte.sh"
+
+grepstreamfunction()
+{
+  tail -n10000 -f $2 | grep --line-buffered "$1"
+}
+alias grepstream=grepstreamfunction
+
+greptopfunction()
+{
+  top -b -d 10 | grep --line-buffered "$1"
+}
+alias greptop=greptopfunction
+
+
+paraviewfunction()
+{
+  THISFILEBASE=${1%%.*} # Get rid of the extension
+  OUTFILE="${THISFILEBASE}.vtu"
+  source "$OOMPHDIR/bin/oomph-convert"
+  oomph-convert $1
+  paraview $OUTFILE
+}
+
+
+alias prv=paraviewfunction
+
+
+

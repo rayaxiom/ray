@@ -1,0 +1,25 @@
+
+config folder:
+These are my openbox config files.
+They are located in
+
+~/.config/openbox/
+
+So symlinks needs to be made for them.
+
+##
+
+bin folder:
+These are binaries associated with openbox.
+
+#
+setlayout
+First need this lib:
+sudo apt-get install libx11-dev
+gcc setlayout.c -o setlayout -lX11
+
+This needs to be ran at startup, done automatically via
+config/autostart
+
+
+

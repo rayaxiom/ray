@@ -1,0 +1,4 @@
+#!/bin/bash
+
+scp -r csf:$1 $2 
+

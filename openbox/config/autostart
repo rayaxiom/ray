@@ -1,0 +1,4 @@
+# Programs that will run after Openbox has started
+
+# Set the layout.
+~/ray/openbox/bin/setlayout 0 2 3 0
