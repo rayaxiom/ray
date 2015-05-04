@@ -18,8 +18,13 @@ First need this lib:
 sudo apt-get install libx11-dev
 gcc setlayout.c -o setlayout -lX11
 
-This needs to be ran at startup, done automatically via
-config/autostart
 
+For some retarded reason, we cannot use autostart. This is due to Lubuntu 
+being awkward. So we do this:
+Preferences->Default applications for LXSessions->Autostart
+and input this:
 
+"/home/ray/ray/openbox/bin/setlayout 0 2 3 0"
+
+Done.
 
