@@ -1,0 +1,4 @@
+#!/bin/bash
+
+scp -r csfhome:$1 $2 
+

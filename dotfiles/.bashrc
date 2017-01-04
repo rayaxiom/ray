@@ -93,6 +93,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias youtube-dl='youtube-dl --prefer-ffmpeg'
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -122,14 +124,15 @@ alias gvim='gvim -p'
 export PATH=$PATH:/home/ray/ray/bin
 source /home/ray/ray/dotfiles/.bashrc_alias
 
-kancolle_api_file="/home/ray/kancolle_api_file"
-kancolle_api=$(grep "mainD2" $kancolle_api_file)
-chromium_command="chromium-browser --disk-cache-size=1073741824 --disk-cache-dir=/home/ray/chromium_cache"
-alias kkl="nohup $chromium_command  \"$kancolle_api\" > /dev/null 2>&1 &"
+#kancolle_api_file="/home/ray/kancolle_api_file"
+#kancolle_api=$(grep "mainD2" $kancolle_api_file)
+#chromium_command="chromium-browser --disk-cache-size=1073741824 --disk-cache-dir=/home/ray/chromium_cache"
+#alias kkl="nohup $chromium_command  \"$kancolle_api\" > /dev/null 2>&1 &"
 
 export EDITOR=vim
 
-OOMPHDIR="/home/ray/oomphlib/mpi_debug_paranoid"
+#OOMPHDIR="/home/ray/oomphlib/mpi_debug_paranoid"
+OOMPHDIR="/home/ray/oomphlib/trunk"
 OOMPHDIRUDRI="$OOMPHDIR/user_drivers"
 OOMPHOPT='/home/ray/oomphlib/mpi_optimized'
 OOMPHOPTUDRI="$OOMPHOPT/user_drivers"
@@ -137,6 +140,15 @@ OOMPHOPTUDRI="$OOMPHOPT/user_drivers"
 
 export PATH=$PATH:$OOMPHDIR/bin
 
+rrtar()
+{
+  tar cvpzf ${1}.tar.gz ${1}
+}
+
+rrxtar()
+{
+  tar xpzf ${1}
+}
 
 
 get_oomph_git_info()
@@ -256,6 +268,9 @@ make()
   /usr/bin/make "$@" 2>&1 | sed -E -e "/[Ee]rror[: ]/ s%$pathpat%$ccred&$ccend%g" -e "/[Ww]arning[: ]/ s%$pathpat%$ccyellow&$ccend%g"
   return ${PIPESTATUS[0]}
 }
+# This makes the function will be available at the shell prompt and also in 
+# other scripts that you call from there
+export -f make
 
 
 # Opens new tab in current working directory
@@ -285,6 +300,5 @@ paraviewfunction()
 
 
 alias prv=paraviewfunction
-
 
 

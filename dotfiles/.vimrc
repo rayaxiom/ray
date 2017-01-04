@@ -103,7 +103,18 @@ autocmd FileType tex set tw=76
 set spell spelllang=en_gb
 setlocal spell spelllang=en_gb
 
+set spellfile+=~/.vim/spell/en.utf-8.add
+set spellfile+=oneoff.utf-8.add
+let g:tex_comment_nospell=1
 
+"setlocal spellfile+=~/.vim/spell/en.utf-8.add
+"setlocal spellfile+=oneoff.utf-8.add
+
+" Map primary clipboard to y and clipboard to capital Y, etc...
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
 
 " A somewhat more informative status line.
 " Name of the file that I am editing
@@ -189,6 +200,9 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
+"Plugin 'scrooloose/syntastic'
+
+
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
@@ -196,6 +210,9 @@ Plugin 'c.vim'
 Plugin 'taglist.vim'
 Plugin 'snipMate'
 Plugin 'FuzzyFinder'
+
+
+
 
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
@@ -302,7 +319,7 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "A-] - Open the definition in a vertical split
 map <A-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-" search and replace highligted text
+" search and replace highlighted text
 " By pressing ctrl + r in the visual mode you will be prompted to 
 " enter text to replace with. 
 " Press enter and then confirm each change you agree with 'y' or 
@@ -311,6 +328,25 @@ vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
 :set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
 :set complete-=k complete+=k
+
+
+" ------------------------------------------------
+"
+"
+"
+"
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+
+"let g:syntastic_text_checkers = ['language_check']
+"let g:syntastic_text_language_check_args = '--language=en-UK'
+
 
 
 
