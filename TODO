@@ -1,0 +1,10 @@
+
+Make the install script check to see if all symlinks exists (at both ends)
+before making any link, so I can warn myself what I don't have.
+
+Add symlinks for openbox
+Add symlinks or gitconfig
+
+reset permissions for .ssh folder/files
+
+
