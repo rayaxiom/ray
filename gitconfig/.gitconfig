@@ -1,0 +1,7 @@
+[user]
+	name = rayaxiom
+	email = raymonwhite42@gmail.com
+[difftool]
+	prompt = false
+[diff]
+	tool = meld
