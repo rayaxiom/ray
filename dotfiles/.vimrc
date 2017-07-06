@@ -150,6 +150,10 @@ amenu <silent>Tabs.&Previous :tabprevious<cr>
 
 
 " make the keys 'kl' to escape to improve efficiency.
+imap ;' <Esc>
+vmap ;' <Esc>
+
+" make the keys 'kl' to escape to improve efficiency.
 "imap kl <Esc>
 "vmap kl <Esc>
 
@@ -207,7 +211,7 @@ Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
 Plugin 'c.vim'
-Plugin 'taglist.vim'
+"Plugin 'taglist.vim'
 Plugin 'snipMate'
 Plugin 'FuzzyFinder'
 
@@ -225,7 +229,7 @@ Plugin 'LaTeX-Box-Team/LaTeX-Box'
 
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " Avoid a name conflict with L9
 "Plugin 'user/L9', {'name': 'newL9'}
@@ -326,6 +330,7 @@ map <A-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " Press enter and then confirm each change you agree with 'y' or 
 " decline with 'n'.
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+vnoremap <C-t> "hy:%s/<C-r>h/\\ctt{<C-r>h}/gc<left><left><left>
 
 :set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
 :set complete-=k complete+=k
