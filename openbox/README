@@ -3,9 +3,12 @@ config folder:
 These are my openbox config files.
 They are located in
 
-~/.config/openbox/
+~/.config/openbox/,
 
 So symlinks needs to be made for them.
+so something like
+ln -s /home/ray/ray/openbox/config/lubuntu-rc.xml lubuntu-rc.xml
+
 
 ##
 
