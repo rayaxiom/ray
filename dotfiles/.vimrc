@@ -89,13 +89,15 @@ set cursorcolumn " Show cursor column
 3match errorMsg /[^\t]\zs\t\+/ " Highlight tabs which are not at the beginning of a line.
 
 "if exists('+colorcolumn')
- set colorcolumn=77
+ set colorcolumn=79
 "else
 "  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>78v.\+', -1)
 "endif
 
 
-autocmd FileType tex set tw=76
+autocmd FileType tex set tw=0
+autocmd FileType tex set wm=0
+autocmd FileType tex set nowrap
 
 "set tw=77
 "set formatoptions+=t
@@ -185,7 +187,6 @@ endif
 
 
 
-
 "vundle start"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -203,7 +204,7 @@ Plugin 'gmarik/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-fugitive'
 "Plugin 'scrooloose/syntastic'
 
 
@@ -219,7 +220,7 @@ Plugin 'FuzzyFinder'
 
 
 " Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
+"Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 
 
