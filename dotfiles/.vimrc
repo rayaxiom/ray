@@ -89,15 +89,15 @@ set cursorcolumn " Show cursor column
 3match errorMsg /[^\t]\zs\t\+/ " Highlight tabs which are not at the beginning of a line.
 
 "if exists('+colorcolumn')
- set colorcolumn=79
+ set colorcolumn=77
 "else
 "  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>78v.\+', -1)
 "endif
 
 
-autocmd FileType tex set tw=0
-autocmd FileType tex set wm=0
-autocmd FileType tex set nowrap
+autocmd FileType tex set tw=76
+"autocmd FileType tex set wm=0
+"autocmd FileType tex set nowrap
 
 "set tw=77
 "set formatoptions+=t
