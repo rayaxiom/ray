@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+/home/ray/ray/openbox/bin/setlayout 0 2 3 0
+
+
+
