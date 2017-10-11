@@ -93,6 +93,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias rrkillalljobs='kill -9 $(jobs -p)'
+
 alias youtube-dl='youtube-dl --prefer-ffmpeg'
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -271,6 +273,22 @@ make()
 # This makes the function will be available at the shell prompt and also in 
 # other scripts that you call from there
 export -f make
+
+## When using make, errors are red, warnings are yellow
+#latexmk()
+#{
+#  pathpat="^.*:[0-9]+"
+#  ccred=$(echo -e "\033[0;31m")
+#  ccyellow=$(echo -e "\033[0;33m")
+#  ccend=$(echo -e "\033[0m")
+#                                   I can't get the below regex correct.
+#  /usr/bin/latexmk "$@" 2>&1 | sed -E -e "/^\.[a-zA-Z0-9]+$/ s%$pathpat%$ccred&$ccend%g" -e "/[Ww]arning[: ]/ s%$pathpat%$ccyellow&$ccend%g"
+#  return ${PIPESTATUS[0]}
+#}
+## This makes the function will be available at the shell prompt and also in 
+## other scripts that you call from there
+#export -f latexmk
+
 
 
 # Opens new tab in current working directory
