@@ -1,4 +1,5 @@
 alias gst='git status'
+alias gaa='git add -A'
 alias gc='git commit'
 alias gcv='git commit -v'
 alias gco='git checkout'

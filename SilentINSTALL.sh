@@ -1,5 +1,5 @@
 #!/bin/bash
-###############################################################################
+############################################################################
 #
 # NOTE: This script is distructive, it will change your dotfiles!
 #
@@ -9,36 +9,14 @@
 # 2) creates symlinks to ~/ray/dotfiles/
 # 3) load specified bash_completion files
 # 4) load crontab from ~/ray/dotfiles
-###############################################################################
-
-#==============================================================================
-# A few helper functions
-#==============================================================================
-## A little function 'borrowed' from the tecplot installation script...
-OptionPrompt() 
-{
- printf "%s " "$1"
-}
- 
-## Another little function 'borrowed' from the tecplot installation script...    
-OptionRead()
-{
- read Opt
- echo $Opt
-}
+############################################################################
 
 
 ############################################################################
 #===========================================================================
 # Set username - this is because cron runs job as root.
 #===========================================================================
-OptionPrompt "Please enter your username."
-USERNAME=`OptionRead`
-cd ~/ray/userdata/
-echo $USERNAME > username
-echo "Username is $USERNAME, this is stored in log/username"
-echo " "
-
+username="ray"
 
 ############################################################################
 #===========================================================================
@@ -123,59 +101,58 @@ done
 echo "All dotfiles are loaded!"
 echo " "
 
+#############################################################################
+##===========================================================================
+## Load completion files
+##===========================================================================
+#OptionPrompt "Do you want to load completion files?"
+#reply=`OptionRead`
+#echo " "
+#if test "$reply" != "y" -a "$reply" != "Y" ; then
+#  echo "Completion files not loaded."
+#else
+#  ## For bin/rbackup
+#  if [ -e /etc/bash_completion.d/rbackup ];
+#  then
+#    echo "/etc/bash_completion.d/rbackup exists."
+#    echo "I will not load completion for bin/rbackup"
+#  else
+#    cp ~/ray/bin/completion/rbackup /etc/bash_completion.d/
+#    echo "Loaded completion file for rbackup"
+#  fi
+#fi
+
+
+#############################################################################
+##===========================================================================
+## Load crontab
+##===========================================================================
+#echo " "
+#echo "Do you want to load Ray's crontab?"
+#echo "See ~/ray/dotfiles/crontab_$USERNAME$HOSTNAME"
+#echo "Your current crontab will be stored in"
+#echo " "
+#echo "    " $dir_old/
+#echo " "
+#echo " "
+#
+#OptionPrompt " Is this OK? [y/n -- default: n]"
+#reply=`OptionRead`
+#if test "$reply" != "y" -a "$reply" != "Y" ; then
+#  echo "crontab not loaded."
+#else
+#  CRONFILE_BK="crontab_${USER}${HOSTNAME}_$(date +"%F")"
+#  crontab -l > ~/$dir_old/$CRONFILE_BK
+#  crontab ~/ray/dotfiles/crontab_$USERNAME$HOSTNAME
+#  echo "Done... your previous crontab is stored in"
+#  echo " "
+#  echo "  " ~/$dir_old/$CRONFILE_BK
+#fi
+
 
 ############################################################################
-#===========================================================================
-# Load completion files
-#===========================================================================
-OptionPrompt "Do you want to load completion files?"
-reply=`OptionRead`
-echo " "
-if test "$reply" != "y" -a "$reply" != "Y" ; then
-  echo "Completion files not loaded."
-else
-  ## For bin/rbackup
-  if [ -e /etc/bash_completion.d/rbackup ];
-  then
-    echo "/etc/bash_completion.d/rbackup exists."
-    echo "I will not load completion for bin/rbackup"
-  else
-    cp ~/ray/bin/completion/rbackup /etc/bash_completion.d/
-    echo "Loaded completion file for rbackup"
-  fi
-fi
-
-
-############################################################################
-#===========================================================================
-# Load crontab
-#===========================================================================
-echo " "
-echo "Do you want to load Ray's crontab?"
-echo "See ~/ray/dotfiles/crontab_$USERNAME$HOSTNAME"
-echo "Your current crontab will be stored in"
-echo " "
-echo "    " $dir_old/
-echo " "
-echo " "
-
-OptionPrompt " Is this OK? [y/n -- default: n]"
-reply=`OptionRead`
-if test "$reply" != "y" -a "$reply" != "Y" ; then
-  echo "crontab not loaded."
-else
-  CRONFILE_BK="crontab_${USER}${HOSTNAME}_$(date +"%F")"
-  crontab -l > ~/$dir_old/$CRONFILE_BK
-  crontab ~/ray/dotfiles/crontab_$USERNAME$HOSTNAME
-  echo "Done... your previous crontab is stored in"
-  echo " "
-  echo "  " ~/$dir_old/$CRONFILE_BK
-fi
-
-
-############################################################################
-echo " "
-echo "I finished!"
-echo "Please check that your userdata/bkdirs_usernamehostname" 
-echo "file is set properly"
+#echo " "
+#echo "I finished!"
+#echo "Please check that your userdata/bkdirs_usernamehostname" 
+#echo "file is set properly"
 
