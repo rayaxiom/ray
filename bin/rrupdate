@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 sudo -s -- <<EOF
 apt-get update
 apt-get upgrade -y
@@ -10,4 +9,6 @@ apt-get autoremove --purge -y
 apt-get autoclean -y
 apt-get clean -y
 EOF
+
+/home/ray/ray/openbox/bin/setlayout 0 2 3 0
 
