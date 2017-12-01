@@ -89,7 +89,7 @@ alias rrfgrep='fgrep -rnI --exclude=tags --color=auto'
 alias rregrep='egrep -rnI --exclude=tags --color=auto'
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -alFv'
 alias la='ls -A'
 alias l='ls -CF'
 

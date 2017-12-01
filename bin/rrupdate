@@ -1,5 +1,8 @@
 #!/bin/bash
 
+cd /home/ray/ray
+git pull origin master
+
 sudo -s -- <<EOF
 apt-get update
 apt-get upgrade -y
@@ -11,4 +14,6 @@ apt-get clean -y
 EOF
 
 /home/ray/ray/openbox/bin/setlayout 0 2 3 0
+
+cd
 
